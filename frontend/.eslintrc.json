@@ -3,11 +3,12 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "standard-with-typescript",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "plugin:react-hooks/recommended"
+  "extends": ["xo", "plugin:react/recommended"],
+  "overrides": [
+    {
+      "extends": ["xo-typescript", "plugin:react/jsx-runtime"],
+      "files": ["*.ts", "*.tsx"]
+    }
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
