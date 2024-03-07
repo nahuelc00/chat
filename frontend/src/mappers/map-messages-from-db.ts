@@ -1,5 +1,9 @@
 import {type Message, type Messages} from '../types/messages';
 
+function organizeMessagesFromOldestToNewest(messagesDataMapped: Messages) {
+	messagesDataMapped.sort((a, b) => a.created - b.created);
+}
+
 function mapMessagesFromDb(messages: any): Messages {
 	const messagesDataMapped: Messages = [];
 
@@ -10,9 +14,12 @@ function mapMessagesFromDb(messages: any): Messages {
 			id: key,
 			username: messageData.username,
 			message: messageData.message,
+			created: new Date(messageData.created).getTime(),
 		};
 		messagesDataMapped.push(dataToSet);
 	}
+
+	organizeMessagesFromOldestToNewest(messagesDataMapped);
 
 	return messagesDataMapped;
 }
