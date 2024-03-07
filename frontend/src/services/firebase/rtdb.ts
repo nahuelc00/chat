@@ -11,6 +11,7 @@ async function sendMessage(username: string, message: string) {
 	await set(ref(rtdb, 'messages/' + crypto.randomUUID()), {
 		username,
 		message,
+		created: new Date().toISOString(),
 	});
 }
 
