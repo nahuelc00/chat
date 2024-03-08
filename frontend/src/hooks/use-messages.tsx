@@ -6,9 +6,12 @@ import {mapMessagesFromDb} from '../mappers/map-messages-from-db';
 
 function useMessages() {
 	const [messages, setMessages] = useState<Messages>([]);
+	const [isLoading, setIsLoading] = useState<boolean>();
 
 	useEffect(() => {
 		const messagesRef = ref(rtdb, 'messages/');
+
+		setIsLoading(true);
 
 		onValue(messagesRef, snapshot => {
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -16,10 +19,11 @@ function useMessages() {
 			const messagesMapped = mapMessagesFromDb(messagesData);
 
 			setMessages(messagesMapped);
+			setIsLoading(false);
 		});
 	}, [ref, onValue]);
 
-	return {messages};
+	return {messages, isLoading};
 }
 
 export {useMessages};
